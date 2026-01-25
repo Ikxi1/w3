@@ -2,6 +2,8 @@
 
 #include "main.h"
 
+#define WM_KBD_EVENT (WM_APP + 1)
+
 HHOOK kbd_hook;
 
 extern BOOL shiftDown;
@@ -12,3 +14,7 @@ typedef struct kbdevent {
       DWORD flags;
       BOOL keydown;
 } KbdEvent;
+
+extern KbdEvent *lastEvent;
+
+LRESULT CALLBACK LowLevelKeyboardProc( int nCode, WPARAM wParam, LPARAM lParam );

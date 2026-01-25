@@ -6,6 +6,7 @@
 #include "main.h"
 #include "monitor.h"
 #include "extra.h"
+#include "keyboard.h"
 
 
 int WINAPI wmain() {
@@ -44,6 +45,9 @@ int WINAPI wmain() {
 
       get_monitors();
 
+      /* Set up low level keyboard hook */
+
+
       SetTimer( mainWindow, 1, 1000, NULL );
 
       /*
@@ -66,6 +70,12 @@ LRESULT CALLBACK WndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam ) {
             case WM_CREATE: {
                   break;
             }
+
+            case WM_KBD_EVENT: {
+
+                  return 0;
+            }
+
             case WM_TIMER: {
                   monitorID = 0;
                   get_monitors();
