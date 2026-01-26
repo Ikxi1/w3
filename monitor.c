@@ -10,11 +10,12 @@ MonitorInfo *monitors = NULL;
 
 
 void get_monitors() {
-      printf_s( "Initializing monitors.\n" );
-      
+#ifdef _DEBUG
+      print( L"Initializing monitors.\n" );
+#endif
       monitorCount = GetSystemMetrics( SM_CMONITORS );
       monitors = malloc( sizeof( MonitorInfo ) * monitorCount );
-      if ( monitors == NULL ) { error_exit( L"Failed to allocate memory for monitors.\n" ); }
+      if ( monitors == NULL ) { error_exit( L"Failed to allocate memory for monitors.\n" ); return -1; }
       EnumDisplayMonitors( NULL, NULL, MonitorEnumProc, 0 );
 
       qsort( monitors, monitorCount, sizeof( MonitorInfo ), compare_monitors );

@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="desktop.c" />
     <ClCompile Include="keyboard.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="monitor.c" />
@@ -138,6 +139,7 @@
     <None Include="G:\Programming_windows\WinAPI\006\.clangd" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="desktop.h" />
     <ClInclude Include="extra.h" />
     <ClInclude Include="keyboard.h" />
     <ClInclude Include="main.h" />
