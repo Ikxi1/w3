@@ -24,6 +24,9 @@
     <ClCompile Include="keyboard.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="desktop.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="G:\Programming_windows\WinAPI\006\.clang-tidy" />
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="keyboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

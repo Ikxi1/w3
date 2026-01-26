@@ -9,6 +9,13 @@
 #include "keyboard.h"
 
 
+BOOL CALLBACK EnumDesktopProc( LPTSTR desktop, LPARAM lParam ) {
+      desktop;
+
+      return TRUE;
+};
+
+
 int WINAPI wmain() {
 
       print(L"mission starto!\n");
@@ -34,8 +41,8 @@ int WINAPI wmain() {
             0, 0,
             NULL, NULL,
             wc.hInstance, NULL );
-      if ( mainWindow == NULL ) { error_exit( L"Couldn't create a main window." ); }
-
+      if ( mainWindow == NULL ) { error_exit( L"Couldn't create a main window." ); return -1; }
+      
       ShowWindow( mainWindow, SW_HIDE );
 #ifdef _DEBUG
       ShowWindow( GetConsoleWindow(), SW_SHOW );
@@ -46,7 +53,13 @@ int WINAPI wmain() {
       get_monitors();
 
       /* Set up low level keyboard hook */
-
+      kbdHook = SetWindowsHookEx(
+            WH_KEYBOARD_LL,
+            LowLevelKeyboardProc,
+            NULL,
+            0
+      );
+      if ( !kbdHook ) { error_exit( L"Failed to install keyboard hook\n" ); }
 
       SetTimer( mainWindow, 1, 1000, NULL );
 
@@ -72,19 +85,47 @@ LRESULT CALLBACK WndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam ) {
             }
 
             case WM_KBD_EVENT: {
+                  KbdEvent *e = (KbdEvent *)lParam;
+                  if ( macroMode && e->keydown ) {
+                        switch ( e->key ) {
+                              case 'E': {
+                                    if ( shiftDown == TRUE ) {
+#ifdef _DEBUG
+                                          print( L"Quitting\n" );
+#endif
+                                          PostQuitMessage( 0 );
+                                    }
+                                    break;
+                              }
+                              case 'D': {
+                                    CreateDesktop( L"Desktop2", NULL, NULL, 0, GENERIC_ALL, NULL );
+                                    break;
+                              }
 
+                              case 1: {
+                                    
+                                    break;
+                              }
+                              default: break;
+                        }
+                  }
+                  if ( e ) { HeapFree( GetProcessHeap(), 0, e ); }
                   return 0;
             }
 
             case WM_TIMER: {
-                  monitorID = 0;
-                  get_monitors();
+                  /*
+                  * this can be turned on, if you want it to recognize when
+                  * a monitor gets added or removed
+                  */
+                  //monitorID = 0;
+                  //get_monitors();
                   return 0;
             }
 
             case WM_DESTROY: {
                   destroy_monitors();
-                  PostQuitMessage( 0 );
+                  PostQuitMessage( (int)wParam );
                   return 0;
             }
             default:
@@ -99,5 +140,5 @@ void error_exit( unsigned short *error_msg ) {
       ShowWindow( GetConsoleWindow(), SW_SHOW );
 #endif
       fwprintf( stderr, error_msg );
-      return -1;
+      PostQuitMessage( -1 );
 }

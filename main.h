@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <Windows.h>
 
+#include "extra.h"
+
 #define WINDOW_WIDTH 1000
 #define WINDOW_HEIGHT 1000
 

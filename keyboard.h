@@ -4,10 +4,11 @@
 
 #define WM_KBD_EVENT (WM_APP + 1)
 
-HHOOK kbd_hook;
+HHOOK kbdHook;
 
 extern BOOL shiftDown;
 extern BOOL ctrlDown;
+extern BOOL macroMode;
 
 typedef struct kbdevent {
       DWORD key;
