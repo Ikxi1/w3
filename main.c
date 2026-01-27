@@ -16,7 +16,7 @@ BOOL CALLBACK EnumDesktopProc( LPTSTR desktop, LPARAM lParam ) {
 };
 
 
-int WINAPI wmain() {
+int WINAPI wmain(void) {
 
       print(L"mission starto!\n");
 #ifdef _DEBUG
@@ -97,8 +97,15 @@ LRESULT CALLBACK WndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam ) {
                                     }
                                     break;
                               }
+
                               case 'D': {
-                                    CreateDesktop( L"Desktop2", NULL, NULL, 0, GENERIC_ALL, NULL );
+                                    // doesn't work right now
+                                    // CreateDesktop( L"Desktop2", NULL, NULL, 0, GENERIC_ALL, NULL );
+                                    break;
+                              }
+
+                              case 'S': {
+                                    if ( shiftDown == TRUE ) take_screenshot();
                                     break;
                               }
 
@@ -141,4 +148,26 @@ void error_exit( unsigned short *error_msg ) {
 #endif
       fwprintf( stderr, error_msg );
       PostQuitMessage( -1 );
+}
+
+
+void take_screenshot(void) {
+    INPUT inputs[6] = { 0 };
+    for (int i = 0; i < 6; i++) inputs[i].type = INPUT_KEYBOARD;
+    inputs[0].ki.wVk = VK_LWIN;
+    inputs[1].ki.wVk = VK_LSHIFT;
+    inputs[2].ki.wVk = 'S';
+
+    inputs[3].ki.wVk = VK_LWIN;
+    inputs[3].ki.dwFlags = KEYEVENTF_KEYUP;
+    inputs[4].ki.wVk = VK_LSHIFT;
+    inputs[4].ki.dwFlags = KEYEVENTF_KEYUP;
+    inputs[5].ki.wVk = 'S';
+    inputs[5].ki.dwFlags = KEYEVENTF_KEYUP;
+
+    SendInput(6, inputs, sizeof(INPUT));
+#ifdef _DEBUG
+    print(L"Taking screenshot\n");
+#endif
+    return;
 }

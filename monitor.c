@@ -15,7 +15,7 @@ void get_monitors() {
 #endif
       monitorCount = GetSystemMetrics( SM_CMONITORS );
       monitors = malloc( sizeof( MonitorInfo ) * monitorCount );
-      if ( monitors == NULL ) { error_exit( L"Failed to allocate memory for monitors.\n" ); return -1; }
+      if ( monitors == NULL ) { error_exit( L"Failed to allocate memory for monitors.\n" ); return; }
       EnumDisplayMonitors( NULL, NULL, MonitorEnumProc, 0 );
 
       qsort( monitors, monitorCount, sizeof( MonitorInfo ), compare_monitors );
@@ -28,7 +28,7 @@ void get_monitors() {
                    monitors[ i ].size.x, monitors[ i ].size.y );
       }
 #endif
-      
+      return;
 }
 
 

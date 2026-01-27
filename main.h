@@ -19,3 +19,4 @@ typedef struct vec2 {
 
 LRESULT CALLBACK WndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam );
 void error_exit( unsigned short *error_msg );
+void take_screenshot(void);

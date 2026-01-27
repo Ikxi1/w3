@@ -40,14 +40,21 @@ LRESULT CALLBACK LowLevelKeyboardProc( int nCode, WPARAM wParam, LPARAM lParam )
       /* if Win-Key pressed, swallow the event*/
       if ( keydown && ( key == VK_LWIN || key == VK_RWIN ) ) {
             macroMode = TRUE;
+#ifdef _DEBUG
             print( L"Macro mode on\n" );
+#endif
             return 1;
       }
       else if ( keyup && ( key == VK_LWIN || key == VK_RWIN ) ) {
             macroMode = FALSE;
+#ifdef _DEBUG
             print( L"Macro mode off\n" );
+#endif
             return 1;
       }
+
+      /* Swallow any keyboard events, when macroMode is one */
+      if ( macroMode ) return 1;
 
       return CallNextHookEx( kbdHook, nCode, wParam, lParam );
 }
