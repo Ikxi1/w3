@@ -10,14 +10,11 @@ MonitorInfo* monitors = NULL;
 
 
 void get_monitors() {
-#ifdef _DEBUG
       print( L"Initializing monitors.\n" );
-#endif
       monitorCount = GetSystemMetrics( SM_CMONITORS );
       monitors = malloc( sizeof( MonitorInfo ) * monitorCount );
       if ( monitors == NULL ) {
             error_exit( L"Failed to allocate memory for monitors.\n" );
-            return;
       }
       EnumDisplayMonitors( NULL, NULL, MonitorEnumProc, 0 );
 
@@ -37,9 +34,7 @@ void get_monitors() {
 
 
 void destroy_monitors() {
-#ifdef _DEBUG
       print( L"Freeing monitors\n" );
-#endif
       free( monitors );
 }
 
@@ -65,4 +60,16 @@ int compare_monitors( const void* a, const void* b ) {
       MonitorInfo* ma = (MonitorInfo*)a;
       MonitorInfo* mb = (MonitorInfo*)b;
       return wcscmp( ma->name, mb->name );
+}
+
+
+void cursor_to_screen(int screen) {
+      if (screen > monitorCount) {
+            print(L"Monitor doesn't exist.");
+            return;
+      }
+      screen--;
+      int x = monitors[screen].pos.x + monitors[screen].size.x / 2;
+      int y = monitors[screen].pos.y + monitors[screen].size.y / 2;
+      SetCursorPos(x, y);
 }

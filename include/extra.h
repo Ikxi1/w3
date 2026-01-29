@@ -2,4 +2,8 @@
 
 #include "main.h"
 
-#define print wprintf_s
+#ifdef _DEBUG
+    #define print(...) wprintf_s(__VA_ARGS__)
+#else
+    #define print(...) ((void)0)
+#endif

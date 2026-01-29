@@ -16,3 +16,4 @@ extern MonitorInfo* monitors;
 void get_monitors();
 void destroy_monitors();
 BOOL CALLBACK MonitorEnumProc( HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData );
+void cursor_to_screen(int screen);

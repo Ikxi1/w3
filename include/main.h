@@ -9,7 +9,7 @@
 #define WINDOW_WIDTH 1000
 #define WINDOW_HEIGHT 1000
 
-HWND mainWindow;
+HWND      mainWindow;
 HINSTANCE hInstance;
 
 typedef struct vec2 {
@@ -17,6 +17,6 @@ typedef struct vec2 {
       int y;
 } Vec2;
 
-LRESULT CALLBACK WndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam );
-void error_exit( unsigned short* error_msg );
-void take_screenshot( void );
+LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+void             error_exit(const unsigned short* error_msg);
+void             take_screenshot(void);

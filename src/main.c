@@ -9,27 +9,25 @@
 #include "../include/monitor.h"
 
 
-BOOL CALLBACK EnumDesktopProc( LPTSTR desktop, LPARAM lParam ) {
-      desktop;
+// BOOL CALLBACK EnumDesktopProc(LPTSTR desktop, LPARAM lParam) {
+//       desktop;
+//
+//       return TRUE;
+// };
 
-      return TRUE;
-};
 
+int WINAPI wmain(void) {
 
-int WINAPI wmain( void ) {
-
-      print( L"mission starto!\n" );
-#ifdef _DEBUG
-      print( L"Running a debug build!\n" );
-#endif
+      print(L"mission starto!\n");
+      print(L"Running a debug build!\n");
 
       /* initialize main window */
-      hInstance = GetModuleHandle( NULL );
-      WNDCLASS wc = { 0 };
-      wc.lpfnWndProc = WndProc;
-      wc.hInstance = hInstance;
+      hInstance        = GetModuleHandle(NULL);
+      WNDCLASS wc      = {0};
+      wc.lpfnWndProc   = WndProc;
+      wc.hInstance     = hInstance;
       wc.lpszClassName = L"MainWindow";
-      RegisterClass( &wc );
+      RegisterClass(&wc);
 
       unsigned long style = WS_CAPTION | WS_MAXIMIZE | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU;
       mainWindow = CreateWindowEx(
@@ -40,60 +38,58 @@ int WINAPI wmain( void ) {
             CW_USEDEFAULT, CW_USEDEFAULT,
             0, 0,
             NULL, NULL,
-            wc.hInstance,
-            NULL
+            wc.hInstance, NULL
       );
-      if ( mainWindow == NULL ) {
-            error_exit( L"Couldn't create a main window." );
+      if (mainWindow == NULL) {
+            error_exit(L"Couldn't create a main window.");
             return -1;
       }
 
-      ShowWindow( mainWindow, SW_HIDE );
+      ShowWindow(mainWindow, SW_HIDE);
 #ifdef _DEBUG
-      ShowWindow( GetConsoleWindow(), SW_SHOW );
+      ShowWindow(GetConsoleWindow(), SW_SHOW);
 #else
-      ShowWindow( GetConsoleWindow(), SW_HIDE );
+      ShowWindow(GetConsoleWindow(), SW_HIDE);
 #endif // _DEBUG
 
       get_monitors();
 
       /* Set up low level keyboard hook */
-      kbdHook = SetWindowsHookEx( WH_KEYBOARD_LL, LowLevelKeyboardProc, NULL, 0 );
-      if ( !kbdHook ) { error_exit( L"Failed to install keyboard hook\n" ); }
+      kbdHook = SetWindowsHookEx(WH_KEYBOARD_LL, LowLevelKeyboardProc, NULL, 0);
+      if (!kbdHook) { error_exit(L"Failed to install keyboard hook\n"); }
 
-      SetTimer( mainWindow, 1, 1000, NULL );
+      SetTimer(mainWindow, 1, 1000, NULL);
 
       /*
        * main loop
        * event management in WndProc()
        */
       MSG msg;
-      while ( GetMessage( &msg, NULL, 0, 0 ) ) {
-            TranslateMessage( &msg );
-            DispatchMessage( &msg );
+      while (GetMessage(&msg, NULL, 0, 0)) {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
       }
 
-      print( L"otsu\n" );
+      print(L"otsu\n");
       return 0;
 }
 
 
-LRESULT CALLBACK WndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam ) {
-      switch ( msg ) {
+LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+      switch (msg) {
             case WM_CREATE: {
                   break;
             }
 
             case WM_KBD_EVENT: {
                   KbdEvent* e = (KbdEvent*)lParam;
-                  if ( macroMode && e->keydown ) {
-                        switch ( e->key ) {
+                  if (macroMode && e->keydown) {
+                        if (e->key != 91) {print(L"%i\n",e->key);}
+                        switch (e->key) {
                               case 'E': {
-                                    if ( shiftDown == TRUE ) {
-#ifdef _DEBUG
-                                          print( L"Quitting\n" );
-#endif
-                                          PostQuitMessage( 0 );
+                                    if (shiftDown == TRUE) {
+                                          print(L"Quitting\n");
+                                          PostQuitMessage(0);
                                     }
                                     break;
                               }
@@ -105,7 +101,7 @@ LRESULT CALLBACK WndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam ) {
                               }
 
                               case 'S': {
-                                    if ( shiftDown == TRUE ) take_screenshot();
+                                    if (shiftDown == TRUE) take_screenshot();
                                     break;
                               }
 
@@ -115,22 +111,23 @@ LRESULT CALLBACK WndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam ) {
                               }
 
                               /* switch between monitors */
-                              case 1:
-                              case 2:
-                              case 3:
-                              case 4:
-                              case 5:
-                              case 6:
-                              case 7:
-                              case 8:
-                              case 9: {
-
+                              case '1':
+                              case '2':
+                              case '3':
+                              case '4':
+                              case '5':
+                              case '6':
+                              case '7':
+                              case '8':
+                              case '9': {
+                                    cursor_to_screen(e->key-48);
                                     break;
                               }
+
                               default: break;
                         }
                   }
-                  if ( e ) { HeapFree( GetProcessHeap(), 0, e ); }
+                  if (e) { HeapFree(GetProcessHeap(), 0, e); }
                   return 0;
             }
 
@@ -146,42 +143,39 @@ LRESULT CALLBACK WndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam ) {
 
             case WM_DESTROY: {
                   destroy_monitors();
-                  PostQuitMessage( (int)wParam );
+                  PostQuitMessage((int)wParam);
                   return 0;
             }
             default: break;
       }
-      return DefWindowProc( hwnd, msg, wParam, lParam );
+      return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
 
-void error_exit( unsigned short* error_msg ) {
+void error_exit(const unsigned short* error_msg) {
 #ifndef _DEBUG
-      ShowWindow( GetConsoleWindow(), SW_SHOW );
+      ShowWindow(GetConsoleWindow(), SW_SHOW);
 #endif
-      fwprintf( stderr, error_msg );
-      PostQuitMessage( -1 );
+      fwprintf_s(stderr, error_msg);
+      PostQuitMessage(-1);
 }
 
 
-void take_screenshot( void ) {
-      INPUT inputs[6] = { 0 };
-      for ( int i = 0; i < 6; i++ )
+void take_screenshot(void) {
+      INPUT inputs[6] = {0};
+      for (int i = 0; i < 6; i++)
             inputs[i].type = INPUT_KEYBOARD;
       inputs[0].ki.wVk = VK_LWIN;
       inputs[1].ki.wVk = VK_LSHIFT;
       inputs[2].ki.wVk = 'S';
 
-      inputs[3].ki.wVk = VK_LWIN;
+      inputs[3].ki.wVk     = VK_LWIN;
       inputs[3].ki.dwFlags = KEYEVENTF_KEYUP;
-      inputs[4].ki.wVk = VK_LSHIFT;
+      inputs[4].ki.wVk     = VK_LSHIFT;
       inputs[4].ki.dwFlags = KEYEVENTF_KEYUP;
-      inputs[5].ki.wVk = 'S';
+      inputs[5].ki.wVk     = 'S';
       inputs[5].ki.dwFlags = KEYEVENTF_KEYUP;
 
-      SendInput( 6, inputs, sizeof( INPUT ) );
-#ifdef _DEBUG
-      print( L"Taking screenshot\n" );
-#endif
-      return;
+      SendInput(6, inputs, sizeof(INPUT));
+      print(L"Taking screenshot\n");
 }

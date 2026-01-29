@@ -4,10 +4,10 @@
 static BOOL CALLBACK EnumWindowsProc( HWND hwnd, LPARAM lParam );
 
 
-void getOpenWindows( void ) {
+void getOpenWindows() {
       size_t window_count = 0;
       AppList list = { NULL, 0 };
-      EnumWindow( EnumWindowsProc, (LPARAM)&list );
+      // EnumWindow( EnumWindowsProc, (LPARAM)&list );
 }
 
 
@@ -16,4 +16,5 @@ static BOOL CALLBACK EnumWindowsProc( HWND hwnd, LPARAM lParam ) {
 
       if ( !IsWindowVisible( hwnd ) ) return TRUE;
       if ( GetWindow( hwnd, GW_OWNER ) != NULL ) return TRUE;
+      return FALSE;
 }

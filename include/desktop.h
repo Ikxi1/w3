@@ -16,4 +16,4 @@ typedef struct {
       size_t count;
 } AppList;
 
-void getOpenWindows( void );
+void getOpenWindows();
