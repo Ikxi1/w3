@@ -124,7 +124,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
                               case '7':
                               case '8':
                               case '9': {
-                                    cursor_to_screen(e->key - 48);
+                                    switch_to_screen(e->key - 48);
+                                    break;
+                              }
+                              /*
+                              * 37 left
+                              * 38 up
+                              * 39 right
+                              * 40 down
+                              */
+                              /* move cursor between monitors */
+                              case VK_LEFT: {
                                     break;
                               }
 
@@ -160,6 +170,9 @@ void error_exit(const unsigned short* error_msg) {
 #ifndef _DEBUG
       ShowWindow(GetConsoleWindow(), SW_SHOW);
 #endif
+      if (error_msg == NULL || error_msg == L"") {
+            error_msg = L"No error specified";
+      }
       fwprintf_s(stderr, error_msg);
       PostQuitMessage(-1);
 }

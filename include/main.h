@@ -17,9 +17,93 @@ typedef struct vec2 {
       int y;
 } Vec2;
 
+
+/*
+Receives all WM_ message events and processes them.
+
+THIS FUNCTION IS NOT TO BE CALLED DIRECTLY.
+
+Input:
+      These are all managed by WinAPI
+
+Output:
+      This is only for WinAPI
+
+Modifies:
+      Basically everything
+ */
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
-void             error_exit(const unsigned short* error_msg);
-void             take_screenshot(void);
-void             open_settings(void);
-void             open_startmenu(void);
-void             close_program(void);
+
+/*
+Safely closes the program with a specified error message.
+
+Input:
+      error_msg: const unsigned short*
+            - A wide string containing details
+              about the error
+            - can be NULL
+
+Output:
+      None
+
+Modifies:
+      Everything, cause it quits.
+
+ */
+void error_exit(const unsigned short *error_msg);
+
+/*
+Injects keystrokes to take a screenshot.
+
+Input:
+      None
+
+Output:
+      None
+
+Modifies:
+      None
+ */
+void take_screenshot(void);
+
+/*
+Injects keystrokes to open Windows settings.
+
+Input:
+      None
+
+Output:
+      None
+
+Modifies:
+      None
+ */
+void open_settings(void);
+
+/*
+Injects keystrokes to open the start menu.
+
+Input:
+      None
+
+Output:
+      None
+
+Modifies:
+      None
+ */
+void open_startmenu(void);
+
+/*
+Injects keystrokes to close a program.
+
+Input:
+      None
+
+Output:
+      None
+
+Modifies:
+      None
+ */
+void close_program(void);

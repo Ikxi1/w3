@@ -2,7 +2,7 @@
 #include "../include/extra.h"
 
 
-int compare_monitors( const void* a, const void* b );
+int compare_monitors( const void *a, const void *b );
 
 int monitorID = 0;
 int monitorCount = 0;
@@ -42,7 +42,7 @@ void destroy_monitors() {
 BOOL CALLBACK MonitorEnumProc( HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData ) {
       MONITORINFOEX mi;
       mi.cbSize = sizeof( mi );
-      if ( GetMonitorInfo( hMonitor, &mi ) ) {
+      if ( GetMonitorInfo( hMonitor, (LPMONITORINFO)&mi ) ) {
             monitors[monitorID].id = monitorID;
             monitors[monitorID].pos.x = mi.rcMonitor.left;
             monitors[monitorID].pos.y = mi.rcMonitor.top;
@@ -56,14 +56,14 @@ BOOL CALLBACK MonitorEnumProc( HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMon
 }
 
 
-int compare_monitors( const void* a, const void* b ) {
+int compare_monitors( const void *a, const void *b ) {
       MonitorInfo* ma = (MonitorInfo*)a;
       MonitorInfo* mb = (MonitorInfo*)b;
       return wcscmp( ma->name, mb->name );
 }
 
 
-void cursor_to_screen(int screen) {
+void switch_to_screen(int screen) {
       if (screen > monitorCount) {
             print(L"Monitor doesn't exist.");
             return;
@@ -72,4 +72,9 @@ void cursor_to_screen(int screen) {
       int x = monitors[screen].pos.x + monitors[screen].size.x / 2;
       int y = monitors[screen].pos.y + monitors[screen].size.y / 2;
       SetCursorPos(x, y);
+}
+
+
+void move_to_screen(int direction) {
+
 }
