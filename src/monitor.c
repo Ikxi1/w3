@@ -1,5 +1,5 @@
-#include "monitor.h"
-#include "extra.h"
+#include "../include/monitor.h"
+#include "../include/extra.h"
 
 
 int compare_monitors( const void* a, const void* b );

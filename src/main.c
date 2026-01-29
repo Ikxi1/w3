@@ -3,10 +3,10 @@
  * Date: 24.01.2026
  */
 
-#include "main.h"
-#include "extra.h"
-#include "keyboard.h"
-#include "monitor.h"
+#include "../include/main.h"
+#include "../include/extra.h"
+#include "../include/keyboard.h"
+#include "../include/monitor.h"
 
 
 BOOL CALLBACK EnumDesktopProc( LPTSTR desktop, LPARAM lParam ) {
@@ -32,8 +32,17 @@ int WINAPI wmain( void ) {
       RegisterClass( &wc );
 
       unsigned long style = WS_CAPTION | WS_MAXIMIZE | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU;
-      mainWindow = CreateWindowEx( 0, L"MainWindow", L"Testing", style, CW_USEDEFAULT, CW_USEDEFAULT, 0, 0, NULL, NULL,
-                                   wc.hInstance, NULL );
+      mainWindow = CreateWindowEx(
+            0,
+            L"MainWindow",
+            L"Testing",
+            style,
+            CW_USEDEFAULT, CW_USEDEFAULT,
+            0, 0,
+            NULL, NULL,
+            wc.hInstance,
+            NULL
+      );
       if ( mainWindow == NULL ) {
             error_exit( L"Couldn't create a main window." );
             return -1;
@@ -97,6 +106,11 @@ LRESULT CALLBACK WndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam ) {
 
                               case 'S': {
                                     if ( shiftDown == TRUE ) take_screenshot();
+                                    break;
+                              }
+
+                              case 'A': {
+
                                     break;
                               }
 

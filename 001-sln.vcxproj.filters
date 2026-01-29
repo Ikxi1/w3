@@ -15,36 +15,40 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.c">
+    <ClCompile Include="src\desktop.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="monitor.c">
+    <ClCompile Include="src\keyboard.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="keyboard.c">
+    <ClCompile Include="src\main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="desktop.c">
+    <ClCompile Include="src\monitor.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include=".gitattributes" />
+    <None Include=".clang-tidy" />
+    <None Include=".clangd" />
+    <None Include=".clang-format" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="main.h">
+    <ClInclude Include="include\desktop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="monitor.h">
+    <ClInclude Include="include\extra.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="extra.h">
+    <ClInclude Include="include\keyboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="keyboard.h">
+    <ClInclude Include="include\main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="desktop.h">
+    <ClInclude Include="include\monitor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

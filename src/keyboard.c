@@ -1,5 +1,5 @@
-#include "keyboard.h"
-#include "extra.h"
+#include "../include/keyboard.h"
+#include "../include/extra.h"
 
 
 BOOL shiftDown = FALSE;

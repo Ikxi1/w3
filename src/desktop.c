@@ -1,4 +1,4 @@
-#include "desktop.h"
+#include "../include/desktop.h"
 
 
 static BOOL CALLBACK EnumWindowsProc( HWND hwnd, LPARAM lParam );
