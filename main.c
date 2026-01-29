@@ -18,7 +18,7 @@ BOOL CALLBACK EnumDesktopProc( LPTSTR desktop, LPARAM lParam ) {
 
 int WINAPI wmain(void) {
 
-      print(L"mission starto!\n");
+      print( L"mission starto!\n" );
 #ifdef _DEBUG
       print( L"Running a debug build!\n" );
 #endif
@@ -109,7 +109,8 @@ LRESULT CALLBACK WndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam ) {
                                     break;
                               }
 
-                              case 1: {
+                               /* switch between monitors */
+                              case 1: case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9: {
                                     
                                     break;
                               }

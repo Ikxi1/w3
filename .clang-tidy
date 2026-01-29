@@ -1,0 +1,19 @@
+Checks: >
+  -*,
+  clang-analyzer-*,
+  bugprone-*,
+  performance-*,
+  readability-*,
+  -bugprone-narrowing-conversions,
+  -bugprone-different-parameter-name,
+  -bugprone-easily-swappable-parameters,
+  -*-magic-numbers,
+  -*-identifier-length,
+  -*-no-int-to-ptr,
+  -*-security.insecureAPI.DeprecatedOrUnsafeBufferHandling,
+  -*-braces-around-statements,
+  -*-branch-clone,
+  -*-else-after-return,
+
+HeaderFilterRegex: '.*'
+FormatStyle: none
