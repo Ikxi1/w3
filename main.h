@@ -1,8 +1,8 @@
 #pragma once
 
+#include <Windows.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <Windows.h>
 
 #include "extra.h"
 
@@ -18,5 +18,5 @@ typedef struct vec2 {
 } Vec2;
 
 LRESULT CALLBACK WndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam );
-void error_exit( unsigned short *error_msg );
-void take_screenshot(void);
+void error_exit( unsigned short* error_msg );
+void take_screenshot( void );

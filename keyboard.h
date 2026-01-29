@@ -2,7 +2,7 @@
 
 #include "main.h"
 
-#define WM_KBD_EVENT (WM_APP + 1)
+#define WM_KBD_EVENT ( WM_APP + 1 )
 
 HHOOK kbdHook;
 
@@ -16,6 +16,6 @@ typedef struct kbdevent {
       BOOL keydown;
 } KbdEvent;
 
-extern KbdEvent *lastEvent;
+extern KbdEvent* lastEvent;
 
 LRESULT CALLBACK LowLevelKeyboardProc( int nCode, WPARAM wParam, LPARAM lParam );

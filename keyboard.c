@@ -10,7 +10,7 @@ BOOL macroMode = FALSE;
 LRESULT CALLBACK LowLevelKeyboardProc( int nCode, WPARAM wParam, LPARAM lParam ) {
       if ( nCode < 0 ) { return CallNextHookEx( kbdHook, nCode, wParam, lParam ); }
 
-      KBDLLHOOKSTRUCT *kbd = (KBDLLHOOKSTRUCT *)lParam;
+      KBDLLHOOKSTRUCT* kbd = (KBDLLHOOKSTRUCT*)lParam;
 
       if ( kbd->flags & LLKHF_INJECTED ) { return CallNextHookEx( kbdHook, nCode, wParam, lParam ); }
 
@@ -23,12 +23,12 @@ LRESULT CALLBACK LowLevelKeyboardProc( int nCode, WPARAM wParam, LPARAM lParam )
             if ( keydown ) shiftDown = TRUE;
             if ( keyup ) shiftDown = FALSE;
       }
-      if ( /*key == VK_CONTROL ||*/ key == VK_LCONTROL ||key == VK_RCONTROL ) {
+      if ( /*key == VK_CONTROL ||*/ key == VK_LCONTROL || key == VK_RCONTROL ) {
             if ( keydown ) ctrlDown = TRUE;
             if ( keyup ) ctrlDown = FALSE;
       }
 
-      KbdEvent *evt = (KbdEvent *)HeapAlloc( GetProcessHeap(), HEAP_ZERO_MEMORY, sizeof( KbdEvent ) );
+      KbdEvent* evt = (KbdEvent*)HeapAlloc( GetProcessHeap(), HEAP_ZERO_MEMORY, sizeof( KbdEvent ) );
 
       if ( evt ) {
             evt->key = key;
@@ -44,8 +44,7 @@ LRESULT CALLBACK LowLevelKeyboardProc( int nCode, WPARAM wParam, LPARAM lParam )
             print( L"Macro mode on\n" );
 #endif
             return 1;
-      }
-      else if ( keyup && ( key == VK_LWIN || key == VK_RWIN ) ) {
+      } else if ( keyup && ( key == VK_LWIN || key == VK_RWIN ) ) {
             macroMode = FALSE;
 #ifdef _DEBUG
             print( L"Macro mode off\n" );

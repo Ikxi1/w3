@@ -11,7 +11,7 @@ typedef struct monitorinfo {
 
 extern int monitorID;
 extern int monitorCount;
-extern MonitorInfo *monitors;
+extern MonitorInfo* monitors;
 
 void get_monitors();
 void destroy_monitors();
