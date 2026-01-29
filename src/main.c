@@ -84,8 +84,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             case WM_KBD_EVENT: {
                   KbdEvent* e = (KbdEvent*)lParam;
                   if (macroMode && e->keydown) {
-                        if (e->key != 91) {print(L"%i\n",e->key);}
+                        // if (e->key != 91) {print(L"%i\n",e->key);}
                         switch (e->key) {
+                              case 'D': {
+                                    open_startmenu();
+                                    break;
+                              }
+
                               case 'E': {
                                     if (shiftDown == TRUE) {
                                           print(L"Quitting\n");
@@ -94,19 +99,18 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
                                     break;
                               }
 
-                              case 'D': {
-                                    // doesn't work right now
-                                    // CreateDesktop( L"Desktop2", NULL, NULL, 0, GENERIC_ALL, NULL );
+                              case 'I': {
+                                    open_settings();
+                                    break;
+                              }
+
+                              case 'Q': {
+                                    if (shiftDown == TRUE) close_program();
                                     break;
                               }
 
                               case 'S': {
                                     if (shiftDown == TRUE) take_screenshot();
-                                    break;
-                              }
-
-                              case 'A': {
-
                                     break;
                               }
 
@@ -120,7 +124,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
                               case '7':
                               case '8':
                               case '9': {
-                                    cursor_to_screen(e->key-48);
+                                    cursor_to_screen(e->key - 48);
                                     break;
                               }
 
@@ -162,13 +166,16 @@ void error_exit(const unsigned short* error_msg) {
 
 
 void take_screenshot(void) {
-      INPUT inputs[6] = {0};
-      for (int i = 0; i < 6; i++)
+#undef keys
+#define keys 6
+      INPUT inputs[keys] = {0};
+      for (int i = 0; i < keys; i++)
             inputs[i].type = INPUT_KEYBOARD;
-      inputs[0].ki.wVk = VK_LWIN;
-      inputs[1].ki.wVk = VK_LSHIFT;
-      inputs[2].ki.wVk = 'S';
-
+      /* key down */
+      inputs[0].ki.wVk     = VK_LWIN;
+      inputs[1].ki.wVk     = VK_LSHIFT;
+      inputs[2].ki.wVk     = 'S';
+      /* key up */
       inputs[3].ki.wVk     = VK_LWIN;
       inputs[3].ki.dwFlags = KEYEVENTF_KEYUP;
       inputs[4].ki.wVk     = VK_LSHIFT;
@@ -176,6 +183,66 @@ void take_screenshot(void) {
       inputs[5].ki.wVk     = 'S';
       inputs[5].ki.dwFlags = KEYEVENTF_KEYUP;
 
-      SendInput(6, inputs, sizeof(INPUT));
+      SendInput(keys, inputs, sizeof(INPUT));
       print(L"Taking screenshot\n");
+}
+
+
+void open_settings(void) {
+#undef keys
+#define keys 4
+      INPUT inputs[keys] = {0};
+      for (int i = 0; i < keys; i++) {
+            inputs[i].type = INPUT_KEYBOARD;
+      }
+      /* key down */
+      inputs[0].ki.wVk     = VK_LWIN;
+      inputs[1].ki.wVk     = 'I';
+      /* key up */
+      inputs[2].ki.wVk     = VK_LWIN;
+      inputs[2].ki.dwFlags = KEYEVENTF_KEYUP;
+      inputs[3].ki.wVk     = 'I';
+      inputs[3].ki.dwFlags = KEYEVENTF_KEYUP;
+
+      SendInput(keys, inputs, sizeof(INPUT));
+      print(L"Opening settings\n");
+}
+
+
+void open_startmenu(void) {
+#undef keys
+#define keys 2
+      INPUT inputs[keys] = {0};
+      for (int i = 0; i < keys; i++) {
+            inputs[i].type = INPUT_KEYBOARD;
+      }
+      /* key down */
+      inputs[0].ki.wVk     = VK_LWIN;
+      /* key up */
+      inputs[1].ki.wVk     = VK_LWIN;
+      inputs[1].ki.dwFlags = KEYEVENTF_KEYUP;
+
+      SendInput(keys, inputs, sizeof(INPUT));
+      print(L"Opening start menu\n");
+}
+
+
+void close_program(void) {
+#undef keys
+#define keys 4
+      INPUT inputs[keys] = {0};
+      for (int i = 0; i < keys; i++) {
+            inputs[i].type = INPUT_KEYBOARD;
+      }
+      /* key down */
+      inputs[0].ki.wVk     = VK_LMENU;
+      inputs[1].ki.wVk     = VK_F4;
+      /* key up */
+      inputs[2].ki.wVk     = VK_LMENU;
+      inputs[2].ki.dwFlags = KEYEVENTF_KEYUP;
+      inputs[3].ki.wVk     = VK_F4;
+      inputs[3].ki.dwFlags = KEYEVENTF_KEYUP;
+
+      SendInput(keys, inputs, sizeof(INPUT));
+      print(L"Closing program\n");
 }

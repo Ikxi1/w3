@@ -3,10 +3,12 @@
 Utility for Windows/Slopdows/Winslop that's supposed to be similar to the i3 window manager on Linux.\
 
 Features:
+- Open start menu: Win+D
 - Quit: Win+Shift+E
-- Move the cursor across your screens: Win+[Number]
-- Open Windows menu: Win+D
+- Open Windows settings: Win+I (like usual)
+- Close programs: Win+Shift+Q (Alt+F4 still works)
 - Take screenshot: Win+Shift+S (like usual)
+- Move the cursor across your screens: Win+[Number]
 - Breaking PowerToys shortcuts that use Win-key
 
 This project is a solution file, so compilation works with Rider and Visual Studio.\

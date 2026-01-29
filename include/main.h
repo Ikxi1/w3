@@ -20,3 +20,6 @@ typedef struct vec2 {
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 void             error_exit(const unsigned short* error_msg);
 void             take_screenshot(void);
+void             open_settings(void);
+void             open_startmenu(void);
+void             close_program(void);
