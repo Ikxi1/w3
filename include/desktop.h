@@ -2,6 +2,13 @@
 
 #include "main.h"
 
+/*
+ * TODO! Make an applist for every monitor and when
+ * moving programs, append and remove from the lists
+ * double linked lists, so that moving between them
+ * is easy
+*/
+
 
 typedef struct {
       HWND hwnd;

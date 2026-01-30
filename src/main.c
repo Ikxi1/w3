@@ -18,7 +18,6 @@
 
 
 int WINAPI wmain(void) {
-
       print(L"mission starto!\n");
       print(L"Running a debug build!\n");
 

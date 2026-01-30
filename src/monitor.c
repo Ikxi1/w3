@@ -97,7 +97,6 @@ void move_cursor_to_screen(enum Direction dir) {
       POINT cursorPos;
       GetCursorPos(&cursorPos);
 
-      // TODO! Rewrite with MonitorFromPoint()
       int curMonitor = -1;
       for (int i = 0; i < monitorCount; i++) {
             if (cursorPos.x >= monitors[i].pos.x &&
@@ -124,7 +123,6 @@ void move_cursor_to_screen(enum Direction dir) {
       int  curCy = (int)((curR.top + curR.bottom) / 2.0);
 
       /* Check if there is a screen when moving the cursor to each direction */
-      /* left */
       POINT p     = {0};
       int   tries = 0;
       while (tries < 3) {
@@ -188,4 +186,85 @@ void switch_program_to_screen(int screen) {
 }
 
 
-void move_program_to_screen(enum Direction dir) {}
+void move_program_to_screen(enum Direction dir) {
+      POINT cursorPos;
+      GetCursorPos(&cursorPos);
+      HWND active = GetForegroundWindow();
+      if (active == NULL) return;
+
+      int curMonitor = -1;
+      for (int i = 0; i < monitorCount; i++) {
+            if (cursorPos.x >= monitors[i].pos.x &&
+                cursorPos.y >= monitors[i].pos.y &&
+                cursorPos.x < monitors[i].pos.x + monitors[i].size.x &&
+                cursorPos.y < monitors[i].pos.y + monitors[i].size.y) {
+                  curMonitor = i;
+                  break;
+                }
+      }
+
+      if (curMonitor == -1) {
+            print(L"Cursor is not on any known monitor.\n");
+            return;
+      }
+
+      RECT curR  = {
+            monitors[curMonitor].pos.x,
+            monitors[curMonitor].pos.y,
+            monitors[curMonitor].pos.x + monitors[curMonitor].size.x,
+            monitors[curMonitor].pos.y + monitors[curMonitor].size.y
+      };
+      int  curCx = (int)((curR.left + curR.right) / 2.0);
+      int  curCy = (int)((curR.top + curR.bottom) / 2.0);
+
+      /* Check if there is a screen when moving the cursor to each direction */
+      POINT p     = {0};
+      int   tries = 0;
+      while (tries < 3) {
+            if (dir == Left) {
+                  p.x = monitors[curMonitor].pos.x - 1;
+                  if (tries == 0) p.y = monitors[curMonitor].pos.y + monitors[curMonitor].size.y;
+                  else if (tries == 1) p.y = monitors[curMonitor].pos.y + monitors[curMonitor].size.y / 2;
+                  else if (tries == 2) p.y = monitors[curMonitor].pos.y;
+            } else if (dir == Up) {
+                  if (tries == 0) p.x = monitors[curMonitor].pos.x + monitors[curMonitor].size.x - 1; /* -1 just cause*/
+                  else if (tries == 1) p.x = monitors[curMonitor].pos.x + monitors[curMonitor].size.x / 2;
+                  else if (tries == 2) p.x = monitors[curMonitor].pos.x;
+                  p.y = monitors[curMonitor].pos.y - 1;
+            } else if (dir == Right) {
+                  p.x = monitors[curMonitor].pos.x + monitors[curMonitor].size.x + 1;
+                  if (tries == 0) p.y = monitors[curMonitor].pos.y + monitors[curMonitor].size.y;
+                  else if (tries == 1) p.y = monitors[curMonitor].pos.y + monitors[curMonitor].size.y / 2;
+                  else if (tries == 2) p.y = monitors[curMonitor].pos.y;
+            } else if (dir == Down) {
+                  if (tries == 0) p.x = monitors[curMonitor].pos.x + monitors[curMonitor].size.y;
+                  else if (tries == 1) p.x = monitors[curMonitor].pos.x + monitors[curMonitor].size.y / 2;
+                  else if (tries == 2) p.x = monitors[curMonitor].pos.x;
+                  p.y = monitors[curMonitor].pos.y + monitors[curMonitor].size.y + 1;
+            }
+
+            for (int i = 0; i < monitorCount; i++) {
+                  if (p.x >= monitors[i].pos.x &&
+                      p.y >= monitors[i].pos.y &&
+                      p.x < monitors[i].pos.x + monitors[i].size.x &&
+                      p.y < monitors[i].pos.y + monitors[i].size.y) {
+                        ShowWindow(active, SW_HIDE);
+                        MoveWindow(
+                              active,
+                              monitors[i].pos.x,
+                              monitors[i].pos.y,
+                              monitors[i].size.x,
+                              monitors[i].size.y,
+                              TRUE
+                        );
+                        ShowWindow(active, SW_MAXIMIZE);
+                        SetCursorPos(
+                              monitors[i].pos.x + monitors[i].size.x/2,
+                              monitors[i].pos.y + monitors[i].size.y/2
+                        );
+                        return;
+                  }
+            }
+            tries++;
+      }
+}
