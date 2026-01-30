@@ -134,7 +134,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
                               * 40 down
                               */
                               /* move cursor between monitors */
-                              case VK_LEFT: {
+                              case VK_LEFT:
+                              case VK_UP:
+                              case VK_RIGHT:
+                              case VK_DOWN: {
+                                    move_to_screen((enum Level)(e->key - 37));
                                     break;
                               }
 
@@ -150,6 +154,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
                    * this can be turned on, if you want it to recognize when
                    * a monitor gets added or removed
                    */
+                  // destroy_monitors();
                   // monitorID = 0;
                   // get_monitors();
                   return 0;

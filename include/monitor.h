@@ -11,13 +11,21 @@ typedef struct monitorinfo {
 extern int          monitorID;
 extern int          monitorCount;
 extern MonitorInfo *monitors;
+extern MonitorInfo  primary;
+extern int          primary_index;
 
+enum Direction {
+      Left,
+      Up,
+      Right,
+      Down
+};
 
 /*
 Get all visible/real monitors connected to the PC.
 Call this at the beginning of the program.
 You can also call it periodically to monitor, if the
-number of monitors changes.
+number of monitors changes. But free the previous monitors.
 
 Input:
       None
@@ -94,4 +102,4 @@ Output:
 Modifies:
       Cursor position
  */
-void move_to_screen(int direction);
+void move_to_screen(enum Direction dir);
