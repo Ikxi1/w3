@@ -8,8 +8,9 @@ Features:
 - Open Windows settings: Win+I (like usual)
 - Close programs: Win+Shift+Q (Alt+F4 still works)
 - Take screenshot: Win+Shift+S (like usual)
-- Move the cursor across your screens: Win+[Number]
-- Breaking PowerToys shortcuts that use Win-key
+- Switch screens: Win+[Number]
+- Move the cursor across screens: Win+[Arrow key]
+- Breaking PowerToys shortcuts that use Win-key (or any other shortcut/program relying on that key)
 
 This project is a solution file, so compilation works with Rider and Visual Studio.\
 WinAPI is used everywhere, so you NEED Visual Studio (unless you can somehow use Windows.h without VS, idk).\
