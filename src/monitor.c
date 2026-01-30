@@ -69,13 +69,6 @@ BOOL CALLBACK MonitorEnumProc(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMoni
             monitors[monitorID].size.y = mi.rcMonitor.bottom - mi.rcMonitor.top;
             wcscpy_s(monitors[monitorID].name, CCHDEVICENAME, mi.szDevice);
             monitorID++;
-            // if (mi.rcMonitor.left == 0 && mi.rcMonitor.top == 0) {
-            //       primary.id = monitors[monitorID].id;
-            //       wcscpy_s(primary.name, CCHDEVICENAME, monitors[monitorID].name);
-            //       primary.pos = monitors[monitorID].pos;
-            //       primary.size = monitors[monitorID].size;
-            //       primary_index = monitorID;
-            // }
       }
       return TRUE;
 }
@@ -88,7 +81,7 @@ int compare_monitors(const void *a, const void *b) {
 }
 
 
-void switch_to_screen(int screen) {
+void switch_cursor_to_screen(int screen) {
       if (screen > monitorCount) {
             print(L"Monitor doesn't exist.\n");
             return;
@@ -100,10 +93,11 @@ void switch_to_screen(int screen) {
 }
 
 
-void move_to_screen(enum Direction dir) {
+void move_cursor_to_screen(enum Direction dir) {
       POINT cursorPos;
       GetCursorPos(&cursorPos);
 
+      // TODO! Rewrite with MonitorFromPoint()
       int curMonitor = -1;
       for (int i = 0; i < monitorCount; i++) {
             if (cursorPos.x >= monitors[i].pos.x &&
@@ -171,3 +165,27 @@ void move_to_screen(enum Direction dir) {
             tries++;
       }
 }
+
+
+void switch_program_to_screen(int screen) {
+      if (screen > monitorCount) {
+            print(L"Monitor doesn't exist.\n");
+            return;
+      }
+      screen--;
+      HWND active = GetForegroundWindow();
+      if (active == NULL) return;
+      int x = monitors[screen].pos.x;
+      int y = monitors[screen].pos.y;
+      int w = monitors[screen].size.x;
+      int h = monitors[screen].size.y;
+      ShowWindow(active, SW_HIDE);
+      MoveWindow(active, x, y, w, h, TRUE);
+      ShowWindow(active, SW_MAXIMIZE);
+      x += monitors[screen].size.x / 2;
+      y += monitors[screen].size.y / 2;
+      SetCursorPos(x, y);
+}
+
+
+void move_program_to_screen(enum Direction dir) {}

@@ -85,15 +85,15 @@ Output:
 Modifies:
       Cursor position
  */
-void switch_to_screen(int screen);
+void switch_cursor_to_screen(int screen);
 
 /*
 Moves to cursor to a screen in the specified direction.
 
 Input:
-      direction: int
+      direction: enum Direction
             - the direction to move the cursor in
-            - does nothing if there is not monitor
+            - does nothing if there is no monitor
               in the given direction
 
 Output:
@@ -102,4 +102,39 @@ Output:
 Modifies:
       Cursor position
  */
-void move_to_screen(enum Direction dir);
+void move_cursor_to_screen(enum Direction dir);
+
+/*
+Moves active program to the specified screen.
+
+Input:
+      screen: int
+            - the index for the monitor, starting at 1
+            - does nothing if screen is out of bounds
+
+Output:
+      None
+
+Modifies:
+      Active program position
+      Cursor position
+ */
+void switch_program_to_screen(int screen);
+
+/*
+Moves active program to a screen in the specified direction.
+
+Input:
+      direction: enum Direction
+            - the direction to move the program in
+            - does nothing if there is no monitor
+              in the given direction
+
+Output:
+      None
+
+Modifies:
+      Active program position
+      Cursor position
+ */
+void move_program_to_screen(enum Direction dir);

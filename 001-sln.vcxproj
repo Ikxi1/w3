@@ -131,6 +131,7 @@
     <ClCompile Include="src\keyboard.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\monitor.c" />
+    <ClCompile Include="src\shortcuts.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />
@@ -145,13 +146,10 @@
     <ClInclude Include="include\keyboard.h" />
     <ClInclude Include="include\main.h" />
     <ClInclude Include="include\monitor.h" />
+    <ClInclude Include="include\shortcuts.h" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitattributes" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="include\" />
-    <Folder Include="src\" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
