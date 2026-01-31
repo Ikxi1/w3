@@ -52,6 +52,12 @@ add_executable(test_desktop
 )
 target_link_libraries(test_desktop unity ${WINDOWS_LIBS})
 
+# Integration tests
+add_executable(test_integration
+    test_integration.c
+)
+target_link_libraries(test_integration unity ${WINDOWS_LIBS})
+
 # Enable testing
 enable_testing()
 
@@ -60,10 +66,11 @@ add_test(NAME test_monitor COMMAND test_monitor)
 add_test(NAME test_keyboard COMMAND test_keyboard)
 add_test(NAME test_shortcuts COMMAND test_shortcuts)
 add_test(NAME test_desktop COMMAND test_desktop)
+add_test(NAME test_integration COMMAND test_integration)
 
 # Add a custom target to run all tests
 add_custom_target(run_tests
     COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure
-    DEPENDS test_main test_monitor test_keyboard test_shortcuts test_desktop
+    DEPENDS test_main test_monitor test_keyboard test_shortcuts test_desktop test_integration
     COMMENT "Running all tests..."
 )

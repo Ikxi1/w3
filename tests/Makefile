@@ -20,9 +20,10 @@ TEST_MONITOR = test_monitor.exe
 TEST_KEYBOARD = test_keyboard.exe
 TEST_SHORTCUTS = test_shortcuts.exe
 TEST_DESKTOP = test_desktop.exe
+TEST_INTEGRATION = test_integration.exe
 
 # All test executables
-TESTS = $(TEST_MAIN) $(TEST_MONITOR) $(TEST_KEYBOARD) $(TEST_SHORTCUTS) $(TEST_DESKTOP)
+TESTS = $(TEST_MAIN) $(TEST_MONITOR) $(TEST_KEYBOARD) $(TEST_SHORTCUTS) $(TEST_DESKTOP) $(TEST_INTEGRATION)
 
 # Colors for output
 GREEN = \033[0;32m
@@ -57,6 +58,9 @@ $(TEST_SHORTCUTS): test_shortcuts.c $(UNITY_OBJ)
 $(TEST_DESKTOP): test_desktop.c $(UNITY_OBJ)
 	$(CC) $(CFLAGS) test_desktop.c $(UNITY_OBJ) -o $(TEST_DESKTOP) $(LDFLAGS)
 
+$(TEST_INTEGRATION): test_integration.c $(UNITY_OBJ)
+	$(CC) $(CFLAGS) test_integration.c $(UNITY_OBJ) -o $(TEST_INTEGRATION) $(LDFLAGS)
+
 # Run all tests
 test: all
 	@echo "Running all tests..."
@@ -86,6 +90,9 @@ run-shortcuts: $(TEST_SHORTCUTS)
 run-desktop: $(TEST_DESKTOP)
 	./$(TEST_DESKTOP)
 
+run-integration: $(TEST_INTEGRATION)
+	./$(TEST_INTEGRATION)
+
 # Clean build artifacts
 clean:
 	rm -f $(TESTS) $(UNITY_OBJ) $(MONITOR_OBJ)
@@ -101,5 +108,6 @@ help:
 	@echo "  run-keyboard - Run keyboard tests"
 	@echo "  run-shortcuts - Run shortcuts tests"
 	@echo "  run-desktop  - Run desktop tests"
+	@echo "  run-integration - Run integration tests"
 	@echo "  clean        - Remove build artifacts"
 	@echo "  help         - Show this help message"

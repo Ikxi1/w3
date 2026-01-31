@@ -58,6 +58,19 @@ Tests for window enumeration functionality:
 - Enum callback return values
 - LPARAM casting patterns
 
+### test_integration.c
+Integration tests demonstrating how components work together:
+- Screen number to array index conversions
+- Key code to number/direction mappings
+- Monitor center calculations
+- Point-in-bounds checking
+- Keyboard modifier combinations
+- Multi-monitor array handling
+- Keyboard event to shortcut mapping
+- Monitor edge detection
+- Screen switching validation
+- Direction iteration patterns
+
 ## Building and Running Tests
 
 ### Prerequisites
@@ -87,6 +100,7 @@ make run-monitor    # Run monitor tests
 make run-keyboard   # Run keyboard tests
 make run-shortcuts  # Run shortcuts tests
 make run-desktop    # Run desktop tests
+make run-integration # Run integration tests
 ```
 
 ### Clean Build Artifacts
@@ -123,6 +137,11 @@ OK
 test_desktop.exe
 --------------------
 10 Tests 0 Failures 0 Ignored
+OK
+
+test_integration.exe
+--------------------
+13 Tests 0 Failures 0 Ignored
 OK
 
 ====================
