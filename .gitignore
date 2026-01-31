@@ -429,3 +429,13 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Test executables and build artifacts
+tests/*.exe
+tests/*.o
+tests/build/
+tests/CMakeFiles/
+tests/CMakeCache.txt
+tests/cmake_install.cmake
+tests/CTestTestfile.cmake
+tests/Testing/
