@@ -251,43 +251,6 @@ void test_screen_switching_bounds_check(void) {
     TEST_ASSERT_EQUAL(FALSE, is_valid);
 }
 
-void test_direction_iteration_pattern(void) {
-    /* Tests the retry pattern for finding adjacent monitors */
-    int tries = 0;
-    int max_tries = 3;
-    
-    while (tries < max_tries) {
-        /* Simulate trying different vertical positions */
-        int vertical_position;
-        if (tries == 0) vertical_position = 100;      /* Bottom */
-        else if (tries == 1) vertical_position = 50;  /* Middle */
-        else if (tries == 2) vertical_position = 0;   /* Top */
-        
-        TEST_ASSERT_TRUE(tries >= 0 && tries < 3);
-        tries++;
-    }
-    
-    TEST_ASSERT_EQUAL_INT(3, tries);
-}
-
-void test_virtual_key_ranges(void) {
-    /* Tests that various key types are in expected ranges */
-    
-    /* Letters */
-    TEST_ASSERT_TRUE('A' >= 0x41 && 'Z' <= 0x5A);
-    
-    /* Numbers */
-    TEST_ASSERT_TRUE('0' >= 0x30 && '9' <= 0x39);
-    
-    /* Function keys */
-    TEST_ASSERT_EQUAL_UINT32(0x70, VK_F1);
-    TEST_ASSERT_EQUAL_UINT32(0x87, VK_F24);
-    TEST_ASSERT_TRUE(VK_F1 >= 0x70 && VK_F24 <= 0x87);
-    
-    /* Arrow keys */
-    TEST_ASSERT_TRUE(VK_LEFT >= 0x25 && VK_DOWN <= 0x28);
-}
-
 int main(void) {
     UNITY_BEGIN();
     
@@ -302,8 +265,6 @@ int main(void) {
     RUN_TEST(test_monitor_edge_detection_for_cursor_movement);
     RUN_TEST(test_window_message_identification);
     RUN_TEST(test_screen_switching_bounds_check);
-    RUN_TEST(test_direction_iteration_pattern);
-    RUN_TEST(test_virtual_key_ranges);
     
     return UNITY_END();
 }

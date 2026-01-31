@@ -86,16 +86,6 @@ void test_compare_monitors_one_empty_name(void) {
     TEST_ASSERT_LESS_THAN(0, result);
 }
 
-void test_monitor_info_structure_initialization(void) {
-    MonitorInfo m = {0};
-    
-    TEST_ASSERT_EQUAL_INT(0, m.id);
-    TEST_ASSERT_EQUAL_INT(0, m.pos.x);
-    TEST_ASSERT_EQUAL_INT(0, m.pos.y);
-    TEST_ASSERT_EQUAL_INT(0, m.size.x);
-    TEST_ASSERT_EQUAL_INT(0, m.size.y);
-}
-
 void test_monitor_info_assignment(void) {
     MonitorInfo m = {0};
     
@@ -114,16 +104,6 @@ void test_monitor_info_assignment(void) {
     TEST_ASSERT_EQUAL_STRING(L"\\\\.\\DISPLAY1", m.name);
 }
 
-void test_vec2_structure(void) {
-    Vec2 v = {0};
-    
-    v.x = 10;
-    v.y = 20;
-    
-    TEST_ASSERT_EQUAL_INT(10, v.x);
-    TEST_ASSERT_EQUAL_INT(20, v.y);
-}
-
 int main(void) {
     UNITY_BEGIN();
     
@@ -132,9 +112,7 @@ int main(void) {
     RUN_TEST(test_compare_monitors_first_greater_than_second);
     RUN_TEST(test_compare_monitors_with_empty_names);
     RUN_TEST(test_compare_monitors_one_empty_name);
-    RUN_TEST(test_monitor_info_structure_initialization);
     RUN_TEST(test_monitor_info_assignment);
-    RUN_TEST(test_vec2_structure);
     
     return UNITY_END();
 }

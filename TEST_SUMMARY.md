@@ -2,19 +2,19 @@
 
 ## 📊 Overview
 
-The w3 project now includes a comprehensive test suite with **63 unit tests** covering core functionality, data structures, and component interactions.
+The w3 project includes a focused test suite with **31 unit tests** covering essential logic, calculations, and component interactions.
 
 ## 🎯 Test Coverage
 
 | Module | Tests | Coverage |
 |--------|-------|----------|
-| Main Utilities | 13 | Vec2 structures, constants, utilities |
-| Monitor Management | 8 | MonitorInfo, comparison, sorting |
-| Keyboard Handling | 9 | KbdEvent, state management |
-| Shortcuts | 10 | INPUT arrays, key combinations |
-| Desktop/Windows | 10 | Window enumeration, AppList |
-| Integration | 13 | Component interactions, patterns |
-| **Total** | **63** | **Comprehensive** |
+| Main Utilities | 5 | Vec2 arithmetic, calculations, bounds checking |
+| Monitor Management | 6 | MonitorInfo comparison, sorting, assignment |
+| Keyboard Handling | 2 | Key event handling, message identification |
+| Shortcuts | 4 | Key combination patterns |
+| Desktop/Windows | 3 | Memory allocation patterns, visibility logic |
+| Integration | 11 | Component interactions, conversions, calculations |
+| **Total** | **31** | **Essential Logic** |
 
 ## 🔧 Test Framework
 
@@ -113,9 +113,9 @@ Example GitHub Actions:
 
 ## 📈 Test Statistics
 
-- **Total Tests**: 63
+- **Total Tests**: 31
 - **Test Files**: 6
-- **Lines of Test Code**: ~2500
+- **Lines of Test Code**: ~1400
 - **Build Systems**: 2 (Make, CMake)
 - **Runner Scripts**: 2 (Batch, PowerShell)
 - **Documentation Pages**: 3
@@ -140,9 +140,28 @@ See [tests/TESTING_GUIDE.md](tests/TESTING_GUIDE.md) for:
 - Make or CMake
 - Windows OS (for platform headers)
 
+## 🎯 Testing Philosophy
+
+This test suite focuses on **meaningful logic** rather than basic C language features:
+
+✅ **What We Test:**
+- Complex calculations (distance, midpoint, bounds)
+- Comparison and sorting logic
+- State transitions and combinations
+- Key conversions and mappings
+- Memory allocation patterns
+- Window visibility logic
+
+❌ **What We Don't Test:**
+- Basic struct initialization (trivial)
+- Simple assignment operations (compiler's job)
+- sizeof() operations (not meaningful)
+- Windows API constants (they don't change)
+- Boolean assignment (language feature)
+
 ## 🎉 Success Criteria
 
-All 63 tests pass with 0 failures:
+All 31 tests pass with 0 failures:
 
 ```
 ====================

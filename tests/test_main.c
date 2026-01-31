@@ -22,33 +22,6 @@ void tearDown(void) {
     /* This is run after each test */
 }
 
-void test_vec2_initialization(void) {
-    Vec2 v = {0};
-    
-    TEST_ASSERT_EQUAL_INT(0, v.x);
-    TEST_ASSERT_EQUAL_INT(0, v.y);
-}
-
-void test_vec2_assignment(void) {
-    Vec2 v = {0};
-    
-    v.x = 100;
-    v.y = 200;
-    
-    TEST_ASSERT_EQUAL_INT(100, v.x);
-    TEST_ASSERT_EQUAL_INT(200, v.y);
-}
-
-void test_vec2_negative_values(void) {
-    Vec2 v = {0};
-    
-    v.x = -100;
-    v.y = -200;
-    
-    TEST_ASSERT_EQUAL_INT(-100, v.x);
-    TEST_ASSERT_EQUAL_INT(-200, v.y);
-}
-
 void test_vec2_arithmetic_operations(void) {
     Vec2 v1 = {10, 20};
     Vec2 v2 = {30, 40};
@@ -116,48 +89,6 @@ void test_vec2_bounds_checking(void) {
     TEST_ASSERT_EQUAL(FALSE, in_bounds);
 }
 
-void test_window_size_constants(void) {
-    TEST_ASSERT_EQUAL_INT(1000, WINDOW_WIDTH);
-    TEST_ASSERT_EQUAL_INT(1000, WINDOW_HEIGHT);
-}
-
-void test_vec2_screen_coordinates(void) {
-    /* Test typical screen coordinate values */
-    Vec2 screen_pos = {1920, 1080};
-    
-    TEST_ASSERT_EQUAL_INT(1920, screen_pos.x);
-    TEST_ASSERT_EQUAL_INT(1080, screen_pos.y);
-    
-    /* Test multi-monitor setup coordinates */
-    Vec2 second_monitor = {1920, 0};  /* Second monitor to the right */
-    TEST_ASSERT_GREATER_THAN(0, second_monitor.x);
-    
-    Vec2 negative_monitor = {-1920, 0};  /* Monitor to the left */
-    TEST_ASSERT_LESS_THAN(0, negative_monitor.x);
-}
-
-void test_vec2_array_of_positions(void) {
-    Vec2 positions[3] = {
-        {0, 0},
-        {100, 100},
-        {200, 200}
-    };
-    
-    TEST_ASSERT_EQUAL_INT(0, positions[0].x);
-    TEST_ASSERT_EQUAL_INT(0, positions[0].y);
-    TEST_ASSERT_EQUAL_INT(100, positions[1].x);
-    TEST_ASSERT_EQUAL_INT(100, positions[1].y);
-    TEST_ASSERT_EQUAL_INT(200, positions[2].x);
-    TEST_ASSERT_EQUAL_INT(200, positions[2].y);
-}
-
-void test_vec2_size_structure(void) {
-    size_t size = sizeof(Vec2);
-    
-    /* Vec2 should be 2 integers */
-    TEST_ASSERT_EQUAL_size_t(2 * sizeof(int), size);
-}
-
 void test_error_message_null_check(void) {
     /* Test null pointer checking pattern */
     const unsigned short* error_msg = NULL;
@@ -173,35 +104,14 @@ void test_error_message_null_check(void) {
     TEST_ASSERT_EQUAL(TRUE, is_null_or_empty);
 }
 
-void test_window_style_flags(void) {
-    /* Test window style flag combinations */
-    unsigned long style = WS_CAPTION | WS_MAXIMIZE | WS_MAXIMIZEBOX | 
-                          WS_MINIMIZEBOX | WS_SYSMENU;
-    
-    /* Verify flags are set */
-    TEST_ASSERT_TRUE(style & WS_CAPTION);
-    TEST_ASSERT_TRUE(style & WS_MAXIMIZE);
-    TEST_ASSERT_TRUE(style & WS_MAXIMIZEBOX);
-    TEST_ASSERT_TRUE(style & WS_MINIMIZEBOX);
-    TEST_ASSERT_TRUE(style & WS_SYSMENU);
-}
-
 int main(void) {
     UNITY_BEGIN();
     
-    RUN_TEST(test_vec2_initialization);
-    RUN_TEST(test_vec2_assignment);
-    RUN_TEST(test_vec2_negative_values);
     RUN_TEST(test_vec2_arithmetic_operations);
     RUN_TEST(test_vec2_distance_calculation);
     RUN_TEST(test_vec2_midpoint_calculation);
     RUN_TEST(test_vec2_bounds_checking);
-    RUN_TEST(test_window_size_constants);
-    RUN_TEST(test_vec2_screen_coordinates);
-    RUN_TEST(test_vec2_array_of_positions);
-    RUN_TEST(test_vec2_size_structure);
     RUN_TEST(test_error_message_null_check);
-    RUN_TEST(test_window_style_flags);
     
     return UNITY_END();
 }

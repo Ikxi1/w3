@@ -78,10 +78,10 @@ make all     # Build all tests
 make clean   # Remove artifacts
 ```
 
-## Test Count: 63
-- test_main: 13 tests
-- test_monitor: 8 tests
-- test_keyboard: 9 tests
-- test_shortcuts: 10 tests
-- test_desktop: 10 tests
-- test_integration: 13 tests
+## Test Count: 31
+- test_main: 5 tests
+- test_monitor: 6 tests
+- test_keyboard: 2 tests
+- test_shortcuts: 4 tests
+- test_desktop: 3 tests
+- test_integration: 11 tests
