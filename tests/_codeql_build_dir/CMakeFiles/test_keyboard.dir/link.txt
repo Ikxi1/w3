@@ -1,0 +1,1 @@
+/home/runner/work/w3/.codeql-scratch/dbs/cpp/working/autobuild/bin/cc -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_keyboard.dir/link.d CMakeFiles/test_keyboard.dir/test_keyboard.c.o -o test_keyboard  libunity.a
