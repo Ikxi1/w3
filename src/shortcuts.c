@@ -1,4 +1,5 @@
 #include "../include/shortcuts.h"
+#include "../include/extra.h"
 
 
 void take_screenshot(void) {

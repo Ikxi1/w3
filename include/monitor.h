@@ -1,6 +1,8 @@
 #pragma once
 
 #include "main.h"
+
+
 typedef struct monitorinfo {
       int   id;
       Vec2  pos;

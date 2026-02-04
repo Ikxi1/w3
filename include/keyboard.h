@@ -18,4 +18,10 @@ typedef struct kbdevent {
 
 extern KbdEvent* lastEvent;
 
+
+
 LRESULT CALLBACK LowLevelKeyboardProc( int nCode, WPARAM wParam, LPARAM lParam );
+
+
+
+void kbd_process(KbdEvent *event);

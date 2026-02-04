@@ -1,5 +1,8 @@
 #include "../include/keyboard.h"
 #include "../include/extra.h"
+#include "../include/shortcuts.h"
+#include "../include/monitor.h"
+#include "../include/extra.h"
 
 
 BOOL shiftDown = FALSE;
@@ -52,4 +55,80 @@ LRESULT CALLBACK LowLevelKeyboardProc( int nCode, WPARAM wParam, LPARAM lParam )
       if ( macroMode ) return 1;
 
       return CallNextHookEx( kbdHook, nCode, wParam, lParam );
+}
+
+
+void kbd_process(KbdEvent *event) {
+      if (macroMode && event->keydown) {
+                        // if (e->key != 91) {print(L"%i\n",e->key);}
+                        switch (event->key) {
+                              case 'D': {
+                                    open_startmenu();
+                                    break;
+                              }
+
+                              case 'E': {
+                                    if (shiftDown == TRUE) {
+                                          print(L"Quitting\n");
+                                          PostQuitMessage(0);
+                                          break;
+                                    }
+                                    open_file_explorer();
+                                    break;
+                              }
+
+                              case 'I': {
+                                    open_settings();
+                                    break;
+                              }
+
+                              case 'Q': {
+                                    if (shiftDown == TRUE) close_program();
+                                    break;
+                              }
+
+                              case 'S': {
+                                    if (shiftDown == TRUE) take_screenshot();
+                                    break;
+                              }
+
+                              /* switch between monitors */
+                              case '1':
+                              case '2':
+                              case '3':
+                              case '4':
+                              case '5':
+                              case '6':
+                              case '7':
+                              case '8':
+                              case '9': {
+                                    if (shiftDown == TRUE) {
+                                          switch_program_to_screen(event->key - 48);
+                                          break;
+                                    }
+                                    switch_cursor_to_screen(event->key - 48);
+                                    break;
+                              }
+                              /*
+                              * 37 left
+                              * 38 up
+                              * 39 right
+                              * 40 down
+                              */
+                              /* move cursor between monitors */
+                              case VK_LEFT:
+                              case VK_UP:
+                              case VK_RIGHT:
+                              case VK_DOWN: {
+                                    if (shiftDown == TRUE) {
+                                          move_program_to_screen((enum Level)(event->key - 37));
+                                          break;
+                                    }
+                                    move_cursor_to_screen((enum Level)(event->key - 37));
+                                    break;
+                              }
+
+                              default: break;
+                        }
+                  }
 }
