@@ -82,3 +82,24 @@ void close_program(void) {
       SendInput(keys, inputs, sizeof(INPUT));
       print(L"Closing program\n");
 }
+
+
+void open_file_explorer(void) {
+#undef keys
+#define keys 4
+      INPUT inputs[keys] = {0};
+      for (int i = 0; i < keys; i++) {
+            inputs[i].type = INPUT_KEYBOARD;
+      }
+      /* key down */
+      inputs[0].ki.wVk     = VK_LWIN;
+      inputs[1].ki.wVk     = 'E';
+      /* key up */
+      inputs[2].ki.wVk     = VK_LWIN;
+      inputs[2].ki.dwFlags = KEYEVENTF_KEYUP;
+      inputs[3].ki.wVk     = 'E';
+      inputs[3].ki.dwFlags = KEYEVENTF_KEYUP;
+
+      SendInput(keys, inputs, sizeof(INPUT));
+      print(L"Opening explorer\n");
+}

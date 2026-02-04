@@ -45,6 +45,7 @@ Modifies:
       None
  */
 void open_startmenu(void);
+
 /*
 Injects keystrokes to close a program.
 
@@ -58,6 +59,20 @@ Modifies:
       None
  */
 void close_program(void);
+
+/*
+Injects keystrokes to open the file explorer.
+
+Input:
+      None
+
+Output:
+      None
+
+Modifies:
+      None
+ */
+void open_file_explorer(void);
 
 
 #endif // SHORTCUTS_H

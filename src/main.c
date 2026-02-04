@@ -95,7 +95,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
                                     if (shiftDown == TRUE) {
                                           print(L"Quitting\n");
                                           PostQuitMessage(0);
+                                          break;
                                     }
+                                    open_file_explorer();
                                     break;
                               }
 
