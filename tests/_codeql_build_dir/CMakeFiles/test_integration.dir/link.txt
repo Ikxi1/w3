@@ -1,0 +1,1 @@
+/home/runner/work/w3/.codeql-scratch/dbs/cpp/working/autobuild/bin/cc -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_integration.dir/link.d CMakeFiles/test_integration.dir/test_integration.c.o -o test_integration  libunity.a
